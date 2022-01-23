@@ -1,17 +1,18 @@
 import { Action } from '@reduxjs/toolkit'
 import React, { Component, useEffect, useState } from 'react'
 import { TaskType } from '..'
-import { CreateTaskType } from '../Redux/actions'
+import { CreateTaskType, DeleteTaskType } from '../Redux/actions'
 import TaskList from './TasksList'
 
 
 
-const TASK_STATUSES = ['Unstarted', 'In Progress', 'Completed']
+export const TASK_STATUSES = ['Unstarted', 'In Progress', 'Completed']
 
 
 type PropTaskType = {
     tasks: TaskType[]
     onCreateTask: ({ title, description }: CreateTaskType) => void
+    onDeleteTask: ({ title, description, taskId, status }: DeleteTaskType) => void
 }
 
 type NewTaskType = {
@@ -23,7 +24,6 @@ const TasksPage = (props: PropTaskType) => {
 
     const [tasksState, setTasks] = useState<TaskType[]>([])
 
-    const [newTask, setNewTask] = useState<NewTaskType>()
 
 
     const [visibility, setVisibility] = useState(false)
@@ -52,26 +52,19 @@ const TasksPage = (props: PropTaskType) => {
         setDescription('')
     }
 
-    const onCreateTask = (e: { preventDefault: () => void }) => {
-        e.preventDefault()
-        setNewTask({
-            title: title,
-            description: description
-        })
-        resetForm()
 
-    }
-
-    useEffect(() => {
-        console.log(newTask)
-    }, [onCreateTask])
 
     const renderTasks = () => {
         return TASK_STATUSES.map(status => {
             const statusTasks = tasksState.filter(task => task.status === status)
-            return <TaskList key={status} status={status} tasks={statusTasks} />
+            return <TaskList key={status} status={status} tasks={statusTasks} onDeleteTasks={props.onDeleteTask}/>
         })
 
+    }
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        props.onCreateTask({title: title, description: description })
+        resetForm()
     }
 
     useEffect(() => {
@@ -79,10 +72,10 @@ const TasksPage = (props: PropTaskType) => {
         return () => {
             setTasks(props.tasks)
         }
-    }, [props.tasks, renderTasks])
+    })
 
 
-
+    
 
 
 
@@ -97,7 +90,7 @@ const TasksPage = (props: PropTaskType) => {
                 </button>
             </div>
             {visibility && (
-                <form className="task­list­form" onSubmit={onCreateTask}>
+                <form className="task­list­form" onSubmit={handleSubmit}>
                     <input
                         className="full­width­input"
                         onChange={onTitleChange}
@@ -131,6 +124,6 @@ const TasksPage = (props: PropTaskType) => {
 }
 
 
-export default TasksPage
+export default TasksPage; 
 
 

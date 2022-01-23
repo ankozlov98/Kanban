@@ -26,5 +26,13 @@ const mockTasks: TaskType[] = [
 
 
 export default function tasks(state = { tasks: mockTasks }, action: any ) {
+    if (action.type === 'CREATE_TASK') {
+
+        return { tasks: state.tasks.concat(action.payload) }
+        }
+    if (action.type === 'DELETE_TASK') {
+        return { tasks: state.tasks.filter((task) => task.id !== action.payload.id) }
+    }
+    
     return state
 }

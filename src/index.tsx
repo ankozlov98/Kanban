@@ -6,7 +6,8 @@ import App from './App'
 
 
 import './index.css'
-import tasks from './Redux/reducers'
+import tasks from './Redux/reducers/index'
+
 
 export type TaskType = {
     id: number, 

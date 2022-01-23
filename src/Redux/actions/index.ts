@@ -1,13 +1,19 @@
 let _id = 1
 
 export function uniqueId() {
-    1
     return _id++
 }
 
 export type CreateTaskType = {
     title: string,
     description: string
+}
+
+export type DeleteTaskType = {
+    title: string,
+    description: string,
+    taskId: number,
+    status: string
 }
 
 export const CreateTask = ({title, description}: CreateTaskType) => {
@@ -20,4 +26,16 @@ export const CreateTask = ({title, description}: CreateTaskType) => {
             status: 'Unstarted',
         }
     })
+}
+
+export const DeleteTask = ({title, description, taskId, status}: DeleteTaskType) => {
+    return ({
+     type: 'DELETE_TASK',
+         payload: {
+             id: taskId,
+             title,
+             description,
+             status: status,
+         }
+     })
 }

@@ -6,4 +6,14 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly ;
-}  
+} 
+
+.task {
+  border: 1px black solid;
+  margin: 10px;
+}
+
+.task­header {
+  display: flex;
+  flex-direction: column;
+}

@@ -3,12 +3,12 @@ import React, { Dispatch, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { TaskType } from './index'
 import TasksPage from './Components/TasksPage'
-import { CreateTask, CreateTaskType } from './Redux/actions'
+import { CreateTask, CreateTaskType, DeleteTask, DeleteTaskType } from './Redux/actions'
 
 
 type PropTaskType = {
-    tasks: TaskType[]
-    dispatch: React.Dispatch<any>
+    tasks: TaskType[],
+    dispatch: React.Dispatch<any>,
 }
 
 const mockArray: TaskType[] = [{
@@ -25,19 +25,23 @@ const App = (props: PropTaskType) => {
         props.dispatch(CreateTask({ title, description }))
         }
 
+    const onDeleteTask = ({ title, description, taskId, status }: DeleteTaskType) => {
+            props.dispatch(DeleteTask({ title, description, taskId, status }))
+            }    
+
     const [mock, setMock] = useState<TaskType[]>(mockArray)
 
     useEffect(() => {
         setMock(props.tasks)
-    }, [props.tasks])
+    }, [props.tasks, onDeleteTask, onCreateTask])
 
-    console.log(props)
     return (
         <div className='body'>
             <h1>Hello</h1>
             <TasksPage 
                 tasks={mock} 
                 onCreateTask={onCreateTask}
+                onDeleteTask={onDeleteTask}
             />
         </div>
     )
