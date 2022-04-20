@@ -1,3 +1,4 @@
+import { PayloadAction } from "@reduxjs/toolkit"
 import { TaskType } from "../../index"
 import { uniqueId } from "../actions"
 
@@ -27,12 +28,16 @@ const mockTasks: TaskType[] = [
 
 export default function tasks(state = { tasks: mockTasks }, action: any ) {
     if (action.type === 'CREATE_TASK') {
-
+        console.log(action.payload)
         return { tasks: state.tasks.concat(action.payload) }
         }
-    if (action.type === 'DELETE_TASK') {
+    else if (action.type === 'DELETE_TASK') {
         return { tasks: state.tasks.filter((task) => task.id !== action.payload.id) }
     }
-    
-    return state
+    else if (action.type === 'CHANGE_STATUS') {
+        console.log(action.payload)
+
+        return {tasks: state.tasks.concat(state.tasks.map((task) => task.id === action.payload.id ? task.status = action.payload.status : ''))}
+    }
+    else return state
 }

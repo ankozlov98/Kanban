@@ -1,9 +1,17 @@
-import React from 'react'
-import { DeleteTaskType } from '../Redux/actions'
+import React, { ChangeEvent, FormEventHandler } from 'react'
+import { useDispatch } from 'react-redux'
+import { ChangeTask, TaskType } from '../Redux/actions'
+import { TASK_STATUSES } from './TasksPage'
 
 
-const Task = (props: { task: { title: string, description: string, id: number }, status: string, key: number, 
-    onDeleteTasks: ({ title, description, taskId, status }: DeleteTaskType) => void }) => {
+const Task = (props: {
+    task: { title: string, 
+        description: string, id: number }, status: string,
+    onDeleteTasks: ({ title, description, taskId, status }: TaskType) => void
+    onChangeTask: ({ title, description, taskId, status }: TaskType) => void
+}) => {
+    
+    
     const DeleteTask = () => {
         console.log(props.task.id)
         props.onDeleteTasks({
@@ -14,16 +22,29 @@ const Task = (props: { task: { title: string, description: string, id: number },
         })
     }
 
+    const changeStatus = (event: any) => {
+        console.log(props.task.id)
+        console.log(event.target.value)
+        props.onChangeTask({
+            title: props.task.title,
+            description: props.task.description,
+            taskId: props.task.id,
+            status: event.target.value
+        })
+    }
+
     return (
-        <div className="task">
-            <div className="task­header">
-                <div>{props.task.title}
-            </div> 
-        </div>
-        <hr />
-        <div className="task­body">{props.task.description}</div>
-        <button onClick={DeleteTask}>Delete</button>
-        </div>
-        )
+        <article className="task">
+            <section className="taskheader">
+                <section className="text-lg font-bold underline">{props.task.title}</section>
+                <select value={props.status} onChange={changeStatus}>
+                    {TASK_STATUSES.map((status) => <option value={status}>{status}</option>)}
+                </select>
+            </section>
+            <hr />
+            <section className="task­body">{props.task.description}</section>
+            <button onClick={DeleteTask}>Delete</button>
+        </article>
+    )
 }
 export default Task

@@ -17,7 +17,7 @@ export type TaskType = {
 }
 
 
-const store = createStore(tasks)
+export const store = createStore(tasks)
 
 
 ReactDOM.render(

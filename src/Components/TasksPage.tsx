@@ -1,7 +1,7 @@
 import { Action } from '@reduxjs/toolkit'
 import React, { Component, useEffect, useState } from 'react'
 import { TaskType } from '..'
-import { CreateTaskType, DeleteTaskType } from '../Redux/actions'
+import { CreateTaskType, ChangeTaskType } from '../Redux/actions'
 import TaskList from './TasksList'
 
 
@@ -12,7 +12,8 @@ export const TASK_STATUSES = ['Unstarted', 'In Progress', 'Completed']
 type PropTaskType = {
     tasks: TaskType[]
     onCreateTask: ({ title, description }: CreateTaskType) => void
-    onDeleteTask: ({ title, description, taskId, status }: DeleteTaskType) => void
+    onDeleteTask: ({ title, description, taskId, status }: ChangeTaskType) => void
+    onChangeTask: ({ title, description, taskId, status }: ChangeTaskType) => void
 }
 
 type NewTaskType = {
@@ -23,7 +24,6 @@ type NewTaskType = {
 const TasksPage = (props: PropTaskType) => {
 
     const [tasksState, setTasks] = useState<TaskType[]>([])
-
 
 
     const [visibility, setVisibility] = useState(false)
@@ -57,7 +57,7 @@ const TasksPage = (props: PropTaskType) => {
     const renderTasks = () => {
         return TASK_STATUSES.map(status => {
             const statusTasks = tasksState.filter(task => task.status === status)
-            return <TaskList key={status} status={status} tasks={statusTasks} onDeleteTasks={props.onDeleteTask}/>
+            return <TaskList key={status} status={status} tasks={statusTasks} onDeleteTasks={props.onDeleteTask} onChangeTask={props.onChangeTask}/>
         })
 
     }
@@ -106,7 +106,7 @@ const TasksPage = (props: PropTaskType) => {
                         placeholder="description"
                     />
                     <button
-                        className="button"
+                        className="button border-4 border-cyan-500 backdrop-grayscale"
                         type="submit"
                     >
                         Save

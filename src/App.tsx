@@ -1,9 +1,9 @@
 import { Action } from '@reduxjs/toolkit'
 import React, { Dispatch, useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { TaskType } from './index'
+import { connect, useDispatch } from 'react-redux'
+import { store, TaskType } from './index'
 import TasksPage from './Components/TasksPage'
-import { CreateTask, CreateTaskType, DeleteTask, DeleteTaskType } from './Redux/actions'
+import { CreateTask, CreateTaskType, DeleteTask, ChangeTaskType, ChangeTask } from './Redux/actions'
 
 
 type PropTaskType = {
@@ -11,37 +11,40 @@ type PropTaskType = {
     dispatch: React.Dispatch<any>,
 }
 
-const mockArray: TaskType[] = [{
-    id: 1,
-    title: 'Learn Redux',
-    description: 'The store, actions, and reducers, oh my!',
-    status: 'In Progress',
-}]
+
+
 
 
 const App = (props: PropTaskType) => {
+    
+    const dispatch = useDispatch()
 
     const onCreateTask = ({ title, description }: CreateTaskType) => {
-        props.dispatch(CreateTask({ title, description }))
+        dispatch(CreateTask({ title, description }))
         }
 
-    const onDeleteTask = ({ title, description, taskId, status }: DeleteTaskType) => {
-            props.dispatch(DeleteTask({ title, description, taskId, status }))
-            }    
+    const onDeleteTask = ({ title, description, taskId, status }: ChangeTaskType) => {
+            dispatch(DeleteTask({ title, description, taskId, status }))
+            }   
+    const onChangeTask = ({ title, description, taskId, status }: ChangeTaskType) => {
+        dispatch(ChangeTask({ title, description, taskId, status }))
+        }   
 
-    const [mock, setMock] = useState<TaskType[]>(mockArray)
+    const [mock, setMock] = useState<TaskType[]>([])
 
     useEffect(() => {
         setMock(props.tasks)
-    }, [props.tasks, onDeleteTask, onCreateTask])
+        console.log(store.getState())
+    }, [store, onCreateTask, onDeleteTask, onChangeTask])
 
     return (
-        <div className='body'>
-            <h1>Hello</h1>
+        <div className='body font-sans'>
+            <h1 className="my-5 text-3xl">Hello</h1>
             <TasksPage 
                 tasks={mock} 
                 onCreateTask={onCreateTask}
                 onDeleteTask={onDeleteTask}
+                onChangeTask={onChangeTask}
             />
         </div>
     )
@@ -54,4 +57,5 @@ function mapStateToProps(state: any) {
 }
 
 export default connect(mapStateToProps)(App)
+
 

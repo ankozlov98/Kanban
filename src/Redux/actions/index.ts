@@ -9,13 +9,19 @@ export type CreateTaskType = {
     description: string
 }
 
-export type DeleteTaskType = {
+export type TaskType = {
     title: string,
     description: string,
     taskId: number,
     status: string
 }
 
+export type ChangeTaskType = {
+    title: string,
+    description: string,
+    taskId: number,
+    status: string
+}
 export const CreateTask = ({title, description}: CreateTaskType) => {
    return ({
     type: 'CREATE_TASK',
@@ -28,7 +34,7 @@ export const CreateTask = ({title, description}: CreateTaskType) => {
     })
 }
 
-export const DeleteTask = ({title, description, taskId, status}: DeleteTaskType) => {
+export const DeleteTask = ({title, description, taskId, status}: TaskType) => {
     return ({
      type: 'DELETE_TASK',
          payload: {
@@ -38,4 +44,17 @@ export const DeleteTask = ({title, description, taskId, status}: DeleteTaskType)
              status: status,
          }
      })
+}
+
+export const ChangeTask = ({title, description, taskId, status}: TaskType) => {
+    console.log({title, description, taskId, status})
+    return ({
+        type: 'CHANGE_STATUS',
+            payload: {
+                id: taskId,
+                title,
+                description,
+                status: status
+            }
+    })
 }
