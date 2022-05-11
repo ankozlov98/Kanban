@@ -21,7 +21,7 @@ type NewTaskType = {
     description: string | undefined
 }
 
-const TasksPage = (props: PropTaskType) => {
+const TasksPage = ({tasks, onCreateTask, onDeleteTask, onChangeTask}: PropTaskType) => {
 
     const [tasksState, setTasks] = useState<TaskType[]>([])
 
@@ -57,20 +57,20 @@ const TasksPage = (props: PropTaskType) => {
     const renderTasks = () => {
         return TASK_STATUSES.map(status => {
             const statusTasks = tasksState.filter(task => task.status === status)
-            return <TaskList key={status} status={status} tasks={statusTasks} onDeleteTasks={props.onDeleteTask} onChangeTask={props.onChangeTask}/>
+            return <TaskList key={status} status={status} tasks={statusTasks} onDeleteTasks={onDeleteTask} onChangeTask={onChangeTask}/>
         })
 
     }
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        props.onCreateTask({title: title, description: description })
+        onCreateTask({title: title, description: description })
         resetForm()
     }
 
     useEffect(() => {
 
-            setTasks(props.tasks)
-    },[props, props.tasks])
+            setTasks(tasks)
+    },[tasks])
 
 
     

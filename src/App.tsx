@@ -15,7 +15,7 @@ type PropTaskType = {
 
 
 
-const App = (props: PropTaskType) => {
+const App = ({tasks}: PropTaskType) => {
     
     const dispatch = useDispatch()
 
@@ -33,9 +33,9 @@ const App = (props: PropTaskType) => {
     const [mock, setMock] = useState<TaskType[]>([])
 
     useEffect(() => {
-        setMock(store.getState().tasks)
-        console.log(store.getState().tasks)
-    }, [props.tasks, store
+        setMock(tasks)
+        console.log(tasks)
+    }, [tasks, store
         // , onCreateTask, onDeleteTask, onChangeTask
     ])
 

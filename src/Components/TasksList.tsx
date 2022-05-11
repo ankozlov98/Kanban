@@ -3,27 +3,33 @@ import { TaskType } from '../index'
 import { ChangeTaskType } from '../Redux/actions'
 import Task from './Task'
 
-
-
-const TaskList = (props: 
-    { status: string; 
-        tasks: TaskType[]; 
-        onDeleteTasks: ({ title, description, taskId, status }: ChangeTaskType) 
+type TaskListProps = {
+    status: string;
+    tasks: TaskType[];
+    onDeleteTasks: ({ title, description, taskId, status }: ChangeTaskType)
         => void;
-        onChangeTask: ({ title, description, taskId, status }: ChangeTaskType) => void
-     }) => {
+    onChangeTask: ({ title, description, taskId, status }: ChangeTaskType) => void
+}
+
+const TaskList = (
+    {
+        status,
+        tasks,
+        onDeleteTasks,
+        onChangeTask
+    }: TaskListProps) => {
     return (
-        <div className="task­list">
+        <section className="task­list">
             <div className="task­list­title">
-                <strong>{props.status}</strong>
+                <strong>{status}</strong>
             </div>
-            {props.tasks.map(task => ( (task.title && task.description) ?
-                <Task key={task.id} task={task} status={props.status} 
-                onDeleteTasks={props.onDeleteTasks} 
-                onChangeTask={props.onChangeTask}
+            {tasks.map(task => ((task.title && task.description) ?
+                <Task key={task.id} task={task} status={status}
+                    onDeleteTasks={onDeleteTasks}
+                    onChangeTask={onChangeTask}
                 /> : ""
             ))}
-        </div>
+        </section>
     )
 }
 export default TaskList
