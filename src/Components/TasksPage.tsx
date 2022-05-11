@@ -69,10 +69,8 @@ const TasksPage = (props: PropTaskType) => {
 
     useEffect(() => {
 
-        return () => {
             setTasks(props.tasks)
-        }
-    })
+    },[props, props.tasks])
 
 
     

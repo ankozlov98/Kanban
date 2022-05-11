@@ -33,9 +33,13 @@ const App = (props: PropTaskType) => {
     const [mock, setMock] = useState<TaskType[]>([])
 
     useEffect(() => {
-        setMock(props.tasks)
-        console.log(store.getState())
-    }, [store, onCreateTask, onDeleteTask, onChangeTask])
+        setMock(store.getState().tasks)
+        console.log(store.getState().tasks)
+    }, [props.tasks, store
+        // , onCreateTask, onDeleteTask, onChangeTask
+    ])
+
+    
 
     return (
         <div className='body font-sans'>
