@@ -1,14 +1,14 @@
 import React from 'react'
 import { TaskType } from '../index'
 import { ChangeTaskType } from '../Redux/actions'
+import { changeTaskFunctionType } from '../types/functionTypes'
 import Task from './Task'
 
 type TaskListProps = {
     status: string;
     tasks: TaskType[];
-    onDeleteTasks: ({ title, description, taskId, status }: ChangeTaskType)
-        => void;
-    onChangeTask: ({ title, description, taskId, status }: ChangeTaskType) => void
+    onDeleteTasks: changeTaskFunctionType;
+    onChangeTask: changeTaskFunctionType;
 }
 
 const TaskList = (
@@ -19,7 +19,7 @@ const TaskList = (
         onChangeTask
     }: TaskListProps) => {
     return (
-        <section className="task­list">
+        <section className="border-4 border-b-black">
             <div className="task­list­title">
                 <strong>{status}</strong>
             </div>

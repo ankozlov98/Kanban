@@ -2,6 +2,7 @@ import { Action } from '@reduxjs/toolkit'
 import React, { Component, useEffect, useState } from 'react'
 import { TaskType } from '..'
 import { CreateTaskType, ChangeTaskType } from '../Redux/actions'
+import { changeTaskFunctionType, createTaskFunctionType } from '../types/functionTypes'
 import TaskList from './TasksList'
 
 
@@ -11,9 +12,9 @@ export const TASK_STATUSES = ['Unstarted', 'In Progress', 'Completed']
 
 type PropTaskType = {
     tasks: TaskType[]
-    onCreateTask: ({ title, description }: CreateTaskType) => void
-    onDeleteTask: ({ title, description, taskId, status }: ChangeTaskType) => void
-    onChangeTask: ({ title, description, taskId, status }: ChangeTaskType) => void
+    onCreateTask: createTaskFunctionType
+    onDeleteTask: changeTaskFunctionType
+    onChangeTask: changeTaskFunctionType
 }
 
 type NewTaskType = {
@@ -21,7 +22,7 @@ type NewTaskType = {
     description: string | undefined
 }
 
-const TasksPage = ({tasks, onCreateTask, onDeleteTask, onChangeTask}: PropTaskType) => {
+const TasksPage = ({ tasks, onCreateTask, onDeleteTask, onChangeTask }: PropTaskType) => {
 
     const [tasksState, setTasks] = useState<TaskType[]>([])
 
@@ -33,9 +34,9 @@ const TasksPage = ({tasks, onCreateTask, onDeleteTask, onChangeTask}: PropTaskTy
     const [description, setDescription] = useState('')
 
     const onTitleChange = (e: { target: { value: string } }) => {
-        
+
         setTitle(e.target.value)
-        
+
     }
 
     const onDescriptionChange = (e: { target: { value: string } }) => {
@@ -57,23 +58,23 @@ const TasksPage = ({tasks, onCreateTask, onDeleteTask, onChangeTask}: PropTaskTy
     const renderTasks = () => {
         return TASK_STATUSES.map(status => {
             const statusTasks = tasksState.filter(task => task.status === status)
-            return <TaskList key={status} status={status} tasks={statusTasks} onDeleteTasks={onDeleteTask} onChangeTask={onChangeTask}/>
+            return <TaskList key={status} status={status} tasks={statusTasks} onDeleteTasks={onDeleteTask} onChangeTask={onChangeTask} />
         })
 
     }
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        onCreateTask({title: title, description: description })
+        onCreateTask({ title: title, description: description })
         resetForm()
     }
 
     useEffect(() => {
 
-            setTasks(tasks)
-    },[tasks])
+        setTasks(tasks)
+    }, [tasks])
 
 
-    
+
 
 
 
@@ -122,6 +123,6 @@ const TasksPage = ({tasks, onCreateTask, onDeleteTask, onChangeTask}: PropTaskTy
 }
 
 
-export default TasksPage; 
+export default TasksPage;
 
 

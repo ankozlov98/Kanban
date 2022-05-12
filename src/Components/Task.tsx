@@ -1,14 +1,17 @@
 import React, { ChangeEvent, FormEventHandler } from 'react'
 import { useDispatch } from 'react-redux'
 import { ChangeTask, TaskType } from '../Redux/actions'
+import {  changeTaskFunctionType } from '../types/functionTypes'
 import { TASK_STATUSES } from './TasksPage'
 
 
 type singleTask = {
-    task: { title: string, 
-        description: string, id: number }, status: string,
-    onDeleteTasks: ({ title, description, taskId, status }: TaskType) => void
-    onChangeTask: ({ title, description, taskId, status }: TaskType) => void
+    task: {
+        title: string,
+        description: string, id: number
+    }, status: string,
+    onDeleteTasks: changeTaskFunctionType
+    onChangeTask: changeTaskFunctionType
 }
 
 const Task = ({
@@ -17,10 +20,10 @@ const Task = ({
     onDeleteTasks,
     onChangeTask
 }: singleTask) => {
-    
-    
+
+
     const DeleteTask = () => {
-        
+
         onDeleteTasks({
             title: task.title,
             description: task.description,
@@ -41,7 +44,7 @@ const Task = ({
     }
 
     return (
-        <article className="task">
+        <article className="border-4 border-gray-800">
             <section className="taskheader">
                 <section className="text-lg font-bold underline">{task.title}</section>
                 <select value={status} onChange={changeStatus}>
