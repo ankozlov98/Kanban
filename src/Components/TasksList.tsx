@@ -19,8 +19,8 @@ const TaskList = (
         onChangeTask
     }: TaskListProps) => {
     return (
-        <section className="border-4 border-b-black">
-            <div className="task­list­title">
+        <section className=" border-black bg-slate-100 border-2 border-radius-2">
+            <div className="bg-slate-200">
                 <strong>{status}</strong>
             </div>
             {tasks.map(task => ((task.title && task.description) ?

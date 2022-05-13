@@ -36,10 +36,10 @@ export const CreateTask = ({title, description}: CreateTaskType) => {
 
 export const DeleteTask = ({title, description, taskId, status}: TaskType) => {
     return ({
-     type: 'DELETE_TASK',
-         payload: {
-             id: taskId,
-             title,
+        type: 'DELETE_TASK',
+        payload: {
+            id: taskId,
+            title,
              description,
              status: status,
          }
@@ -50,11 +50,11 @@ export const ChangeTask = ({title, description, taskId, status}: TaskType) => {
     console.log({title, description, taskId, status})
     return ({
         type: 'CHANGE_STATUS',
-            payload: {
+        payload: {
                 id: taskId,
                 title,
                 description,
                 status: status
-            }
+        }
     })
 }

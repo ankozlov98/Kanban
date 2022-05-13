@@ -1,7 +1,7 @@
-import { Action } from '@reduxjs/toolkit'
 import React, { Component, useEffect, useState } from 'react'
 import { TaskType } from '..'
 import { CreateTaskType, ChangeTaskType } from '../Redux/actions'
+import { PagePropsTasksType } from '../types/componentProps'
 import { changeTaskFunctionType, createTaskFunctionType } from '../types/functionTypes'
 import TaskList from './TasksList'
 
@@ -10,19 +10,14 @@ import TaskList from './TasksList'
 export const TASK_STATUSES = ['Unstarted', 'In Progress', 'Completed']
 
 
-type PropTaskType = {
-    tasks: TaskType[]
-    onCreateTask: createTaskFunctionType
-    onDeleteTask: changeTaskFunctionType
-    onChangeTask: changeTaskFunctionType
-}
+
 
 type NewTaskType = {
     title: string | undefined,
     description: string | undefined
 }
 
-const TasksPage = ({ tasks, onCreateTask, onDeleteTask, onChangeTask }: PropTaskType) => {
+const TasksPage = ({ tasks, onCreateTask, onDeleteTask, onChangeTask }: PagePropsTasksType) => {
 
     const [tasksState, setTasks] = useState<TaskType[]>([])
 
@@ -79,7 +74,7 @@ const TasksPage = ({ tasks, onCreateTask, onDeleteTask, onChangeTask }: PropTask
 
 
     return (
-        <div className="tasks">
+        <div className="tasks bg-emerald-100">
             <div className="task­list­header">
                 <button
                     className="button button­default"
@@ -113,9 +108,7 @@ const TasksPage = ({ tasks, onCreateTask, onDeleteTask, onChangeTask }: PropTask
                 </form>
             )}
             <div className="tasklists">
-                {
-                    renderTasks()
-                }
+                {renderTasks()}
             </div>
         </div>
 
