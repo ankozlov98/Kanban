@@ -1,6 +1,7 @@
 import React, { Component, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { TaskType } from '..'
-import { CreateTaskType, ChangeTaskType } from '../Redux/actions'
+import { CreateTaskType, ChangeTaskType, CreateTask, DeleteTask, ChangeTask } from '../Redux/actions'
 import { PagePropsTasksType } from '../types/componentProps'
 import { changeTaskFunctionType, createTaskFunctionType } from '../types/functionTypes'
 import TaskList from './TasksList'
@@ -10,14 +11,36 @@ import TaskList from './TasksList'
 export const TASK_STATUSES = ['Unstarted', 'In Progress', 'Completed']
 
 
-
+type TaskPageProps = {
+    tasks: TaskType[]
+}
 
 type NewTaskType = {
     title: string | undefined,
     description: string | undefined
 }
 
-const TasksPage = ({ tasks, onCreateTask, onDeleteTask, onChangeTask }: PagePropsTasksType) => {
+const TasksPage = ({tasks}: TaskPageProps) => {
+
+    const dispatch = useDispatch()
+
+    const onCreateTask = ({ title, description }: CreateTaskType) => {
+        dispatch(CreateTask({ title, description }))
+        }
+
+    const onDeleteTask = ({ title, description, taskId, status }: ChangeTaskType) => {
+            dispatch(DeleteTask({ title, description, taskId, status }))
+            }   
+    const onChangeTask = ({ title, description, taskId, status }: ChangeTaskType) => {
+        dispatch(ChangeTask({ title, description, taskId, status }))
+        }   
+
+    const [mock, setMock] = useState<TaskType[]>([])
+
+    useEffect(() => {
+        setMock(tasks)
+        console.log(tasks)
+    }, [tasks])
 
     const [tasksState, setTasks] = useState<TaskType[]>([])
 

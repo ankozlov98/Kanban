@@ -39,7 +39,7 @@ const Task = ({
     }
 
     return (
-        <article className="border-4 border-gray-800 bg-white">
+        <article className="border-2 border-gray-800 bg-stale-100 w-11/12  m-2">
             <section className="taskheader">
                 <section className="text-lg font-bold underline">{task.title}</section>
                 <select value={status} onChange={changeStatus}>
