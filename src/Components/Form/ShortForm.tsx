@@ -47,14 +47,14 @@ const ShortForm = () => {
                 onChange={onTitleChange}
                 value={title}
                 type="text"
-                placeholder="title"
+                placeholder=" title"
             />
             <input
                 className="full­width­input rounded-sm placeholder:m-2"
                 onChange={onDescriptionChange}
                 value={description}
                 type="text"
-                placeholder="description"
+                placeholder=" description"
             />
             <button
                 className="button  bg-slate-100 m-2 rounded-sm w-24 shadow"

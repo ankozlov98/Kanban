@@ -5,17 +5,17 @@ import { changeTaskFunctionType } from "../types/functionTypes";
 import Task from "./Task";
 
 type TaskListProps = {
+    key: string
   status: string;
   tasks: TaskType[];
-  onDeleteTasks: changeTaskFunctionType;
-  onChangeTask: changeTaskFunctionType;
+//   onDeleteTasks: changeTaskFunctionType;
+//   onChangeTask: changeTaskFunctionType;
 };
 
 const TaskList = ({
   status,
   tasks,
-  onDeleteTasks,
-  onChangeTask,
+  key
 }: TaskListProps) => {
   return (
     <article className='bg-slate-100 shadow border-rs w-3/12 m-2 '>
@@ -32,11 +32,9 @@ const TaskList = ({
           {tasks.map((task) =>
             task.title && task.description ? (
               <Task
-                key={task.id}
+                key={String(task.id)}
                 task={task}
                 status={status}
-                onDeleteTasks={onDeleteTasks}
-                onChangeTask={onChangeTask}
               />
             ) : (
               ""

@@ -1,18 +1,47 @@
 import React, { ChangeEvent, FormEventHandler } from "react";
 import { useDispatch } from "react-redux";
-import { ChangeTask, TaskType } from "../Redux/actions";
-import stylesObject from "../Styles";
+
+import stylesObject  from "../Styles";
 import { singleTask } from "../types/componentProps";
 import { changeTaskFunctionType } from "../types/functionTypes";
 
 import { TASK_STATUSES } from "./TasksPage";
 
+import {
+    CreateTaskType,
+    ChangeTaskType,
+    CreateTask,
+    DeleteTask,
+    ChangeTask,
+  } from "../Redux/actions";
+  
+
 const taskContainerStyle = `${stylesObject?.flexStyles?.customCenter('col')} shadow bg-gray-100 w-11/12 m-2 p-2`
 
-const Task = ({ task, status, onDeleteTasks, onChangeTask }: singleTask) => {
+const Task = ({ task, status, key }: singleTask) => {
 
-  const DeleteTask = () => {
-    onDeleteTasks({
+    const dispatch = useDispatch();
+
+    const onDeleteTask = ({
+      title,
+      description,
+      taskId,
+      status,
+    }: ChangeTaskType) => {
+      dispatch(DeleteTask({ title, description, taskId, status }));
+    };
+    
+    const onChangeTask = ({
+      title,
+      description,
+      taskId,
+      status,
+    }: ChangeTaskType) => {
+      dispatch(ChangeTask({ title, description, taskId, status }));
+    };
+
+  const deleteTaskFunc = () => {
+    onDeleteTask({
       title: task.title,
       description: task.description,
       taskId: task.id,
@@ -41,7 +70,7 @@ const Task = ({ task, status, onDeleteTasks, onChangeTask }: singleTask) => {
       </section>
       <hr />
       <section className="m-2 text-sm">{task.description}</section>
-      <button onClick={DeleteTask} className="bg-slate-300">Delete</button>
+      <button onClick={deleteTaskFunc} className="bg-slate-300">Delete</button>
     </article>
   );
 };

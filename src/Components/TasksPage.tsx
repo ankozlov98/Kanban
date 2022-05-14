@@ -29,24 +29,7 @@ type NewTaskType = {
 };
 
 const TasksPage = ({ tasks }: TaskPageProps) => {
-  const dispatch = useDispatch();
-
-  const onDeleteTask = ({
-    title,
-    description,
-    taskId,
-    status,
-  }: ChangeTaskType) => {
-    dispatch(DeleteTask({ title, description, taskId, status }));
-  };
-  const onChangeTask = ({
-    title,
-    description,
-    taskId,
-    status,
-  }: ChangeTaskType) => {
-    dispatch(ChangeTask({ title, description, taskId, status }));
-  };
+ 
 
   const [tasksState, setTasks] = useState<TaskType[]>([]);
 
@@ -58,8 +41,6 @@ const TasksPage = ({ tasks }: TaskPageProps) => {
           key={status}
           status={status}
           tasks={statusTasks}
-          onDeleteTasks={onDeleteTask}
-          onChangeTask={onChangeTask}
         />
       );
     });
