@@ -8,6 +8,7 @@ import {
   DeleteTask,
   ChangeTask,
 } from "../Redux/actions";
+import stylesObject from "../Styles";
 import { PagePropsTasksType } from "../types/componentProps";
 import {
   changeTaskFunctionType,
@@ -73,8 +74,14 @@ const TasksPage = ({ tasks }: TaskPageProps) => {
       <h1 className="my-5 text-3xl bg-gray-900 text-white">Kanban Desk</h1>
 
       <div className="tasks bg-emerald-100">
-        <ShortForm />
-        <div className="tasklists">{renderTasks()}</div>
+        <section className={`${stylesObject?.flexStyles?.customCenter('col')} p-2`}>
+            <ShortForm />
+            <h6 className="italic m-2"> You Can Add You Task Here Or Customize Through More Options Mode</h6>
+        </section>
+        
+       <div className={`${stylesObject?.flexStyles?.customCenter('row', false)}`}>
+           {renderTasks()}
+        </div> 
       </div>
     </div>
   );

@@ -1,3 +1,3 @@
-export const customCenter = (dir: string) => `flex flex-${dir} justify-center items-center`
+export const customCenter = (dir: string, align = true) => `flex flex-${dir} justify-center ${align ? 'items-center' : ''}`
 
  

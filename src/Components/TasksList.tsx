@@ -1,5 +1,6 @@
 import React from "react";
 import { TaskType } from "../index";
+import stylesObject from "../Styles";
 import { changeTaskFunctionType } from "../types/functionTypes";
 import Task from "./Task";
 
@@ -17,7 +18,7 @@ const TaskList = ({
   onChangeTask,
 }: TaskListProps) => {
   return (
-    <article className=" bg-slate-100 border-2 border-rs w-3/12 ">
+    <article className='bg-slate-100 shadow border-rs w-3/12 m-2 '>
       <section className="bg-slate-300 text-center text-lg">
         {status}: {tasks.length || 0}
       </section>

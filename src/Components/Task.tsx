@@ -7,10 +7,10 @@ import { changeTaskFunctionType } from "../types/functionTypes";
 
 import { TASK_STATUSES } from "./TasksPage";
 
-const taskContainerStyle = `${stylesObject?.flexStyles?.customCenter('col')} border-2 border-gray-800 bg-stale-100 w-11/12 m-2`
+const taskContainerStyle = `${stylesObject?.flexStyles?.customCenter('col')} shadow bg-gray-100 w-11/12 m-2 p-2`
 
 const Task = ({ task, status, onDeleteTasks, onChangeTask }: singleTask) => {
-    
+
   const DeleteTask = () => {
     onDeleteTasks({
       title: task.title,
