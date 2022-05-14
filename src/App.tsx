@@ -12,30 +12,21 @@ type PropTaskType = {
     dispatch: React.Dispatch<Action>,
 }
 
-
-
-
-
-const App = ({tasks}: PropTaskType) => {
-    
-    
-    
-
-    return (
-        <div className=' bg-emerald-500 font-sans'>
-            <h1 className="my-5 text-3xl bg-gray-900 text-white">Kanban Desk</h1>
-            <TasksPage 
-                tasks={tasks} 
-            />
-        </div>
-    )
-}
-
 function mapStateToProps(state: any) {
     return {
         tasks: state.tasks
     }
 }
+// { tasks }: PropTaskType
+const App = () => {
+    return (
+        <TasksPage
+            // tasks={tasks}
+        />
+
+    )
+}
+
 
 export default connect(mapStateToProps)(App)
 
