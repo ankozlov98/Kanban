@@ -69,7 +69,7 @@ const TasksPage = ({ tasks }: TaskPageProps) => {
   }, [tasks]);
 
   return (
-    <div className=" bg-emerald-500 font-sans">
+    <div className=" bg-emerald-500 font-sans h-screen">
       <h1 className="my-5 text-3xl bg-gray-900 text-white">Kanban Desk</h1>
 
       <div className="tasks bg-emerald-100">

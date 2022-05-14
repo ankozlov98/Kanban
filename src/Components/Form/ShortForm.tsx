@@ -59,7 +59,7 @@ const ShortForm = () => {
             <button
                 className="button  bg-slate-100 m-2 rounded-sm w-24 shadow"
                 type="submit"
-                disabled={!Boolean(title) && !(Boolean(description))}
+                disabled={!(!!Boolean(title)  && !!(Boolean(description)))}
             >
                 Save
             </button>
